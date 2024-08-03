@@ -27,11 +27,11 @@ export class GithubService {
       );
   }
 
-  getRepositories(login: string): Observable<Repository[]> {
+  getRepositories(login: string, pageSize = 50): Observable<Repository[]> {
     return this.apollo
       .query<{ user: User }>({
         query: GET_REPOS,
-        variables: { login },
+        variables: { login, pageSize },
       })
       .pipe(
         map((result) => {

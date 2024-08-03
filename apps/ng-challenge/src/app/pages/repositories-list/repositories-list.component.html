@@ -1,0 +1,21 @@
+<div class="flex gap-5">
+  <input 
+    type="search" 
+    class="border-2 rounded-md hover:border-blue-500 px-4 py-2 mb-4 w-80 outline-none"
+    placeholder="Search by name or description"
+    #filterInput 
+    (input)="filterRepos(filterInput.value)"
+  />
+</div>
+
+@if (repos$ | async; as repos) {
+  <ag-grid-angular 
+    class="ag-theme-quartz h-[519px]" 
+    [rowData]="repos" 
+    [columnDefs]="colDefs"
+    [pagination]="pagination"
+    [paginationPageSize]="paginationPageSize"
+    [paginationPageSizeSelector]="paginationPageSizeSelector"
+  />
+}
+

@@ -1,9 +1,13 @@
-<input type="text" #filterInput (input)="filterRepos(filterInput.value)">
+<header class="px-8 py-4 border-b-2 border-blue-500">
+  <nav>
+    @for (page of pages; track page.route) {
+      <a class="text-blue-500 px-8 py-4 hover:text-blue-800" [routerLink]="[page.route]" routerLinkActive="router-link-active">
+        {{page.title}}
+      </a>
+    }
+  </nav>
+</header>
 
-@if (repos$ | async; as repos) {
-  @for (repo of repos; track repo.id) {
-    <div>{{ repo.name }}</div>
-  }
-}
-
-<router-outlet />
+<main class="px-8 py-16">
+  <router-outlet />
+</main>

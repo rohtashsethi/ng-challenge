@@ -21,5 +21,10 @@ export const selectRepositoriesError = createSelector(
 
 export const selectRepositories = createSelector(
   selectRepositoriesState,
-  (state: RepositoriesState) => state.filter ? state.repositories.filter(repo => repo.name.includes(state.filter)): state.repositories
+  (state: RepositoriesState) =>
+    state.filter
+      ? state.repositories.filter((repo) =>
+          repo.name.concat(repo.description).includes(state.filter)
+        )
+      : state.repositories
 );
