@@ -1,9 +1,11 @@
-<input type="text" #filterInput (input)="filterRepos(filterInput.value)">
-
-@if (repos$ | async; as repos) {
-  @for (repo of repos; track repo.id) {
-    <div>{{ repo.name }}</div>
-  }
-}
+<header>
+  <nav>
+    @for (page of pages; track page.route) {
+      <a [routerLink]="[page.route]" routerLinkActive="router-link-active">
+        {{page.title}}
+      </a>
+    }
+  </nav>
+</header>
 
 <router-outlet />

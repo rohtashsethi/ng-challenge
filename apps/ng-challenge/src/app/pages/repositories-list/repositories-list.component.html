@@ -1,0 +1,7 @@
+<input type="text" #filterInput (input)="filterRepos(filterInput.value)">
+
+@if (repos$ | async; as repos) {
+  @for (repo of repos; track repo.id) {
+    <div>{{ repo.name }}</div>
+  }
+}
