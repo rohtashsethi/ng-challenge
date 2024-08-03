@@ -1,3 +1,5 @@
+import { Repository } from "./repositories.models";
+
 export interface User {
   name: string;
   login: string;
@@ -5,12 +7,4 @@ export interface User {
   bio: string;
   avatarUrl: string;
   repositories: { nodes: Repository[] };
-}
-
-export interface Repository {
-  description: string;
-  id: string;
-  name: string;
-  url: string;
-  createdAt: string;
 }
