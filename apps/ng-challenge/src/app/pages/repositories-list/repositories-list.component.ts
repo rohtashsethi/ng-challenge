@@ -23,7 +23,8 @@ export default class RepositoriesListComponent {
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
     { field: 'name', flex: 1, filter: true },
-    { field: 'description', flex: 2, filter: true },
+    { field: 'description', flex: 1, filter: true },
+    { field: 'stargazerCount', headerName: 'Stars', flex: .5, filter: true },
     {
       field: 'createdAt',
       flex: 1,
@@ -37,17 +38,8 @@ export default class RepositoriesListComponent {
   paginationPageSize = 10;
   paginationPageSizeSelector = [10, 15, 20];
 
-  constructor(private store: Store, private datePipe: DatePipe) {}
-
-  ngOnInit(): void {
-    this.fetchRepos();
+  constructor(private store: Store, private datePipe: DatePipe) {
     this.repos$ = this.store.select(RepositorySelectors.selectRepositories);
-  }
-
-  fetchRepos(): void {
-    this.store.dispatch(
-      RepositoryActions.loadRepositories({ login: 'rohtashsethi' })
-    );
   }
 
   filterRepos(filter: string): void {

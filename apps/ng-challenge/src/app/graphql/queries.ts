@@ -17,12 +17,13 @@ export const GET_REPOS = gql`
     user(login: $login) {
       login
       name
-      repositories(first: $pageSize) {
+      repositories(first: $pageSize, orderBy: { field: STARGAZERS, direction: DESC }) {
         totalCount
         nodes {
           description
           id
           name
+          stargazerCount
           createdAt
         }
       }

@@ -1,13 +1,13 @@
-<header class="px-8 py-4 border-b-2 border-blue-500">
+<header class="px-4 py-4 border-b-2 border-blue-500 md:px-8">
   <nav>
     @for (page of pages; track page.route) {
-      <a class="text-blue-500 px-8 py-4 hover:text-blue-800" [routerLink]="[page.route]" routerLinkActive="router-link-active">
+      <a class="text-blue-500 px-4 py-2 hover:text-blue-800" [routerLink]="[page.route]" routerLinkActive="router-link-active">
         {{page.title}}
       </a>
     }
   </nav>
 </header>
 
-<main class="px-8 py-16">
+<main class="px-4 py-4  md:px-8 md:py-16">
   <router-outlet />
 </main>
