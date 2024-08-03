@@ -7,7 +7,7 @@ import { GithubService } from './services/github.service';
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   title = 'ng-challenge';
@@ -16,15 +16,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.githubService.getUserInfo('rohtashsethi').subscribe({
-      next: user => {
+      next: (user) => {
         console.log('User Info: ', user);
-      }
+      },
     });
 
     this.githubService.getRepositories('rohtashsethi').subscribe({
-      next: repos => {
+      next: (repos) => {
         console.log('User Repos: ', repos);
-      }
+      },
     });
   }
 }

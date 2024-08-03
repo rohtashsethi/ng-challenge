@@ -27,16 +27,18 @@ export class GithubService {
   }
 
   getRepositories(login: string): Observable<Repository[]> {
-    return this.apollo.query<{ user: User }>({
-      query: GET_REPOS,
-      variables: { login },
-    }).pipe(
-      map(result => {
-        if (result.data) {
-          return result.data.user.repositories.nodes;
-        }
-        return [];
+    return this.apollo
+      .query<{ user: User }>({
+        query: GET_REPOS,
+        variables: { login },
       })
-    );
+      .pipe(
+        map((result) => {
+          if (result.data) {
+            return result.data.user.repositories.nodes;
+          }
+          return [];
+        })
+      );
   }
 }
