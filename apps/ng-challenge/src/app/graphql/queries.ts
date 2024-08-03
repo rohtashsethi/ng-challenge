@@ -13,17 +13,16 @@ export const GET_USER_INFO = gql`
 `;
 
 export const GET_REPOS = gql`
-  query ($login: String!) {
+  query ($login: String!, $pageSize: Int!) {
     user(login: $login) {
       login
       name
-      repositories(first: 10) {
+      repositories(first: $pageSize) {
         totalCount
         nodes {
           description
           id
           name
-          url
           createdAt
         }
       }
