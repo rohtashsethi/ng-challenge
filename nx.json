@@ -7,7 +7,10 @@
       "default",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/**/*.spec.[jt]s",
-      "!{projectRoot}/karma.conf.js"
+      "!{projectRoot}/karma.conf.js",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "!{projectRoot}/.storybook/**/*",
+      "!{projectRoot}/tsconfig.storybook.json"
     ]
   },
   "targetDefaults": {
@@ -18,6 +21,9 @@
     },
     "test": {
       "inputs": ["default", "^production", "{workspaceRoot}/karma.conf.js"],
+      "cache": true
+    },
+    "build-storybook": {
       "cache": true
     }
   },
