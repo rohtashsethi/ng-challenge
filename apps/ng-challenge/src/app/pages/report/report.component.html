@@ -1,1 +1,5 @@
-<p>report works!</p>
+@if (stars$ | async; as stars) {
+  @if (stars.length) {
+    <lib-barchart class="w-full lg:w-3/4" [data]="stars" [barColor]="'red'"></lib-barchart>
+  }
+}

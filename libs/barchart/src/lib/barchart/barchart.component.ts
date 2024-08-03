@@ -13,8 +13,8 @@ import * as d3 from 'd3';
 })
 export class BarchartComponent {
   @Input() set data(data: BarChartItem[]) {
-    this.chartData = data || [];
-    this.updateChart(this.height + (this.margin * 2));
+    this.chartData = data;
+    this.updateChart(this.height ? this.height + (this.margin * 2) : 400);
   };
 
   @Input() set chartHeight(height: number) {
@@ -26,27 +26,18 @@ export class BarchartComponent {
     this.updateChart(this.height + (this.margin * 2));
   }
 
-  @Input() set chartMargin(margin: number) {
-    this.margin = margin;
-    this.width = this.el.nativeElement.offsetWidth - (this.margin * 2);
-    this.updateChart(this.height + (this.margin * 2));
-  }
-
   @HostListener('window:resize', ['$event'])
   onResize() {
-    this.width = this.el.nativeElement.offsetWidth - (this.margin * 2);
     this.updateChart(this.height + (this.margin * 2));
   }
   private chartData: BarChartItem[] = [];
   private svg!: d3.Selection<SVGGElement, unknown, HTMLElement | null, undefined>;
   private margin = 50;
-  private width: number;
+  private width!: number;
   private height = 400 - (this.margin * 2);
   private _barColor = '#d04a35';
 
-  constructor(private el: ElementRef<HTMLElement>) {
-    this.width = this.el.nativeElement.offsetWidth - (this.margin * 2);
-  }
+  constructor(private el: ElementRef<HTMLElement>) {}
 
   private createSvg(): void {
     this.svg = d3.select(this.el.nativeElement)
@@ -93,6 +84,7 @@ export class BarchartComponent {
       this.el.nativeElement.innerHTML = '';
       this.setHeight(height);
     }
+    this.width = this.el.nativeElement.offsetWidth - (this.margin * 2);
     this.createSvg();
     this.drawBars(this.chartData);
   }

@@ -32,13 +32,6 @@ const meta: Meta<BarchartComponent> = {
       defaultValue: 40,
       control: { type: 'color', presetColors: ['red', 'green', 'blue', 'yellow', 'orange'] }
     },
-    chartMargin:  {
-      name: 'Chart Margin',
-      description: 'Margin for the chart container',
-      type: 'number',
-      defaultValue: 50,
-      control: { type: 'range', min: 5, max: 100, step: 5 }
-    },
   }
 };
 export default meta;
@@ -54,7 +47,6 @@ export const Primary: Story = {
       { name: 'BAckend', value: 15 },
     ],
     chartHeight: 400,
-    chartMargin: 50
   },
 };
 
