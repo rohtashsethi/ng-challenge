@@ -1,0 +1,120 @@
+{
+  "nodes": {
+    "ng-challenge": {
+      "name": "ng-challenge",
+      "type": "app",
+      "data": {
+        "root": ".",
+        "name": "ng-challenge",
+        "$schema": "../../node_modules/nx/schemas/project-schema.json",
+        "projectType": "application",
+        "sourceRoot": "apps/ng-challenge/src",
+        "prefix": "app",
+        "generators": {},
+        "targets": {
+          "build": {
+            "executor": "@angular-devkit/build-angular:application",
+            "options": {
+              "outputPath": "dist/apps/ng-challenge",
+              "index": "apps/ng-challenge/src/index.html",
+              "browser": "apps/ng-challenge/src/main.ts",
+              "polyfills": [
+                "zone.js"
+              ],
+              "tsConfig": "apps/ng-challenge/tsconfig.app.json",
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "apps/ng-challenge/public"
+                }
+              ],
+              "styles": [
+                "apps/ng-challenge/src/styles.css"
+              ],
+              "scripts": []
+            },
+            "configurations": {
+              "production": {
+                "budgets": [
+                  {
+                    "type": "initial",
+                    "maximumWarning": "500kB",
+                    "maximumError": "1MB"
+                  },
+                  {
+                    "type": "anyComponentStyle",
+                    "maximumWarning": "2kB",
+                    "maximumError": "4kB"
+                  }
+                ],
+                "outputHashing": "all"
+              },
+              "development": {
+                "optimization": false,
+                "extractLicenses": false,
+                "sourceMap": true,
+                "fileReplacements": [
+                  {
+                    "replace": "apps/ng-challenge/src/environments/environment.ts",
+                    "with": "apps/ng-challenge/src/environments/environment.development.ts"
+                  }
+                ]
+              }
+            },
+            "defaultConfiguration": "production",
+            "parallelism": true
+          },
+          "serve": {
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+              "production": {
+                "buildTarget": "ng-challenge:build:production"
+              },
+              "development": {
+                "buildTarget": "ng-challenge:build:development"
+              }
+            },
+            "defaultConfiguration": "development",
+            "options": {},
+            "parallelism": true
+          },
+          "extract-i18n": {
+            "executor": "@angular-devkit/build-angular:extract-i18n",
+            "configurations": {},
+            "options": {},
+            "parallelism": true
+          },
+          "test": {
+            "executor": "@angular-devkit/build-angular:karma",
+            "options": {
+              "polyfills": [
+                "zone.js",
+                "zone.js/testing"
+              ],
+              "tsConfig": "apps/ng-challenge/tsconfig.spec.json",
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "apps/ng-challenge/public"
+                }
+              ],
+              "styles": [
+                "apps/ng-challenge/src/styles.css"
+              ],
+              "scripts": []
+            },
+            "configurations": {},
+            "parallelism": true
+          }
+        },
+        "implicitDependencies": [],
+        "tags": []
+      }
+    }
+  },
+  "externalNodes": {},
+  "dependencies": {
+    "ng-challenge": []
+  },
+  "version": "6.0"
+}

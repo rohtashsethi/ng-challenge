@@ -1,0 +1,90 @@
+{
+  "version": "6.0",
+  "nxVersion": "19.5.6",
+  "deps": {},
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "projectFileMap": {
+      "ng-challenge": [
+        {
+          "file": "project.json",
+          "hash": "8056880762620827606"
+        },
+        {
+          "file": "src/app/app.component.css",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/app.component.html",
+          "hash": "12643191573562657700"
+        },
+        {
+          "file": "src/app/app.component.spec.ts",
+          "hash": "4468568787944452765"
+        },
+        {
+          "file": "src/app/app.component.ts",
+          "hash": "7564735612521026029"
+        },
+        {
+          "file": "src/app/app.config.ts",
+          "hash": "12996301436653843080"
+        },
+        {
+          "file": "src/app/app.routes.ts",
+          "hash": "12397496131277534773"
+        },
+        {
+          "file": "src/app/graphql/graphql.provider.ts",
+          "hash": "3219011992376586630"
+        },
+        {
+          "file": "src/app/graphql/queries.ts",
+          "hash": "18408877721225859461"
+        },
+        {
+          "file": "src/app/models/user.interface.ts",
+          "hash": "12784745179784619141"
+        },
+        {
+          "file": "src/app/services/github.service.spec.ts",
+          "hash": "1496784204756019803"
+        },
+        {
+          "file": "src/app/services/github.service.ts",
+          "hash": "10684078116126276681"
+        },
+        {
+          "file": "src/environments/environment.development.ts",
+          "hash": "7140942690288864849"
+        },
+        {
+          "file": "src/environments/environment.ts",
+          "hash": "12870288060598690904"
+        },
+        {
+          "file": "src/index.html",
+          "hash": "7089491840642526363"
+        },
+        {
+          "file": "src/main.ts",
+          "hash": "16635586463787978962"
+        },
+        {
+          "file": "src/styles.css",
+          "hash": "5195668842064076916"
+        },
+        {
+          "file": "tsconfig.app.json",
+          "hash": "1654356665310886288"
+        },
+        {
+          "file": "tsconfig.spec.json",
+          "hash": "17700927949365452100"
+        }
+      ]
+    },
+    "nonProjectFiles": []
+  }
+}

@@ -4,7 +4,7 @@ export interface User {
   location: string;
   bio: string;
   avatarUrl: string;
-  repositories: { nodes: Repository[]};
+  repositories: { nodes: Repository[] };
 }
 
 export interface Repository {

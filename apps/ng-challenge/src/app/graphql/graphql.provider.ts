@@ -23,7 +23,6 @@ export function apolloOptionsFactory(): ApolloClientOptions<any> {
   return {
     link: auth.concat(httpLink.create({ uri })),
     cache: new InMemoryCache(),
-
   };
 }
 
