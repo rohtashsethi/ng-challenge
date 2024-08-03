@@ -23,6 +23,7 @@ export const GET_REPOS = gql`
           description
           id
           name
+          stargazerCount
           createdAt
         }
       }

@@ -24,6 +24,7 @@ export default class RepositoriesListComponent {
   colDefs: ColDef[] = [
     { field: 'name', flex: 1, filter: true },
     { field: 'description', flex: 2, filter: true },
+    { field: 'stargazerCount', headerName: 'Stars', flex: 1, filter: true },
     {
       field: 'createdAt',
       flex: 1,
