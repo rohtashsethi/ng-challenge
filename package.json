@@ -27,6 +27,7 @@
     "@ngrx/effects": "^18.0.1",
     "@ngrx/entity": "^18.0.1",
     "@ngrx/router-store": "^18.0.1",
+    "@ngrx/signals": "^18.0.2",
     "@ngrx/store": "^18.0.2",
     "@nx/nest": "^19.5.6",
     "@types/express": "^4.17.21",

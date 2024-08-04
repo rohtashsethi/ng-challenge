@@ -3,12 +3,12 @@ import { Repository } from '../models/repositories.models';
 
 export const loadRepositories = createAction(
   '[Repositories/API] Load Repositories',
-  props<{ login: string }>()
+  props<{ cursor: string, limit: number }>()
 );
 
 export const loadRepositoriesSuccess = createAction(
   '[Repositories/API] Load Repositories Success',
-  props<{ repositories: Repository[] }>()
+  props<{ repositories: Repository[], cursor: string, hasNextPage: boolean }>()
 );
 
 export const loadRepositoriesFailure = createAction(

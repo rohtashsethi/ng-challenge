@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -17,8 +17,10 @@ import { Repository } from '../../models/repositories.models';
   templateUrl: './repositories-list.component.html',
   styleUrl: './repositories-list.component.css',
 })
-export default class RepositoriesListComponent {
+export default class RepositoriesListComponent implements OnInit {
   repos$: Observable<Repository[]> | null = null;
+  cursor: string = '';
+  hasNextPage: boolean = false;
 
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
@@ -44,11 +46,26 @@ export default class RepositoriesListComponent {
     this.repos$ = this.store.select(RepositorySelectors.selectRepositories);
   }
 
+  ngOnInit(): void {
+    this.store.select(RepositorySelectors.selectRepositoriesPageInfo).subscribe({
+      next: pageInfo => {
+        this.cursor = pageInfo.cursor ?? '';
+        this.hasNextPage = pageInfo.hasNextPage;
+      }
+    })
+  }
+
   filterRepos(filter: string): void {
     this.store.dispatch(RepositoryActions.filterRepositories({ filter }));
   }
 
   onGridReady(params: any) {
     params.api.sizeColumnsToFit();
+  }
+
+  loadMore(): void {
+    this.store.dispatch(
+      RepositoryActions.loadRepositories({ cursor: this.cursor, limit: 20})
+    );
   }
 }
