@@ -1,27 +1,21 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as RepositoryActions from './../../store/repositories.actions';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { GithubService } from '../../services/github.service';
 import { User } from '../../models/user.models';
-
+import { HeaderComponent } from './../../layout/header/header.component';
+import * as RepositoryActions from './../../store/repositories.actions';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, RouterLink, HeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export default class HomeComponent {
-  pages = [
-    { title: 'Home', route: '/home' },
-    { title: 'Repositories', route: 'repositories' },
-    { title: 'Report', route: 'report'}
-  ];
-
   user: User | null = null;
-
+  
   constructor(private store: Store, private router: Router, private githubService: GithubService) {}
 
   ngOnInit(): void {
@@ -48,10 +42,5 @@ export default class HomeComponent {
         }
       }
     })
-  }
-
-  logout(): void {
-    localStorage.removeItem('token');
-    this.router.navigateByUrl('');
   }
 }

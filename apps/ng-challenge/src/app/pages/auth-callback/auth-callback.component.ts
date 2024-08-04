@@ -20,7 +20,7 @@ export default class AuthCallbackComponent implements OnInit {
         const token = queryParamsMap.get('token');
         if (token) {
           localStorage.setItem('token', token);
-          this.router.navigate(['', 'home']);
+          this.router.navigate(['', 'home', 'repositories']);
         }
       },
     });
