@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as RepositoryActions from './../../store/repositories.actions';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { GithubService } from '../../services/github.service';
+import { User } from '../../models/user.models';
 
 
 @Component({
@@ -18,20 +20,38 @@ export default class HomeComponent {
     { title: 'Report', route: 'report'}
   ];
 
-  constructor(private store: Store) {}
+  user: User | null = null;
+
+  constructor(private store: Store, private router: Router, private githubService: GithubService) {}
 
   ngOnInit(): void {
-    this.fetchRepos();
-  }
+    this.getUserInfo();  }
 
   /**
    * Dispaches Load Repository action to store 
    *
    * @memberof AppComponent
    */
-  fetchRepos(): void {
+  fetchRepos(login: string): void {
     this.store.dispatch(
-      RepositoryActions.loadRepositories({ login: 'rohtashsethi' })
+      RepositoryActions.loadRepositories({ login })
     );
+  }
+
+  getUserInfo() {
+    this.githubService.getUserInfo().subscribe({
+      next: user => {
+        console.log(user);
+        if (user) {
+          this.user = user;
+          this.fetchRepos(user.login);
+        }
+      }
+    })
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigateByUrl('');
   }
 }

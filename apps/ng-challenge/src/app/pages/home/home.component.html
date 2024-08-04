@@ -1,20 +1,24 @@
-<header class="flex px-4 py-4 border-b-2 border-blue-500 md:px-8">
+<header class="flex px-4 py-4 border-b-2 bg-white border-blue-500 md:px-8">
   <nav class="flex-1">
     @for (page of pages; track page.route) {
-      <a class="text-blue-500 px-4 py-2 hover:text-blue-800" [routerLink]="[page.route]" routerLinkActive="router-link-active">
+      <a class="link" [routerLink]="[page.route]" routerLinkActive="router-link-active">
         {{page.title}}
       </a>
     }
   </nav>
   <div>
+    @if (user) {
+      <span class="p-2"> Welcome, {{ user.name }}</span>
+    }
     <a 
-      class="text-blue-500 px-4 py-2 hover:text-blue-800" 
+      class="link"
+      (click)="logout()"
     >
       Logout
     </a>
   </div>
 </header>
 
-<main class="px-4 py-4  md:px-8 md:py-16">
+<main class="px-4 py-4 flex-1">
   <router-outlet />
 </main>

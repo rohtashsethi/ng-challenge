@@ -122,7 +122,7 @@ export class BarchartComponent {
       .attr('transform', `translate(0, ${this.height})`)
       .call(d3.axisBottom(x))
       .selectAll('text')
-      .attr('transform', 'translate(-10,0)rotate(-45)')
+      .attr('class', 'translate-x-0 -rotate-45 lg:translate-x-5 lg:rotate-0 text-[8px] lg:text-x-[10px]')
       .style('text-anchor', 'end');
 
     this.svg.append('g')
