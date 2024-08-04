@@ -13,8 +13,8 @@ The application features:
 - Nx for Integrated Monorepo
 
 ## Prerequisites
-- Node
-- Nx
+- Node 20.10.0
+- Nx 19.5.6
 - GitHub account and OAuth app configured.
 
 # Getting Started
