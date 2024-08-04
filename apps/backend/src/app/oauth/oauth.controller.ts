@@ -11,6 +11,6 @@ export class OauthController {
     console.log('Code ', code);
     const token = await firstValueFrom(this.oauthService.getAccessToken(code));
     console.log('Token ', token);
-    res.redirect(`http://localhost:4200/?token=${token}`);
+    res.redirect(`http://localhost:4200/callback?token=${token}`);
   }
 }

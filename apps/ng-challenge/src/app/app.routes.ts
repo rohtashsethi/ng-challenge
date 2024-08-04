@@ -1,12 +1,35 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { 
-    path: 'repositories',
-    loadComponent: () => import('./pages/repositories-list/repositories-list.component')
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'auth',
   },
-  { 
-    path: 'report',
-    loadComponent: () => import('./pages/report/report.component')
+  {
+    path: 'auth',
+    loadComponent: () => import('./pages/auth/auth.component')
+  },
+  {
+    path: 'callback',
+    loadComponent: () => import('./pages/auth-callback/auth-callback.component')
+  },
+  {
+    path: 'home',
+    loadComponent: () => import('./pages/home/home.component'),
+    children: [
+      { 
+        path: 'repositories',
+        loadComponent: () => import('./pages/repositories-list/repositories-list.component')
+      },
+      { 
+        path: 'report',
+        loadComponent: () => import('./pages/report/report.component')
+      },
+    ]
+  },
+  {
+    path: '**',
+    redirectTo: 'auth'
   }
 ];
