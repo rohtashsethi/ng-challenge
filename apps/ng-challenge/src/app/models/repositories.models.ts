@@ -1,5 +1,8 @@
 /**
- * Interface for the 'Repositories' data
+ * GitHub User's Repository Model
+ *
+ * @export
+ * @interface Repository
  */
 export interface Repository {
   id: string;

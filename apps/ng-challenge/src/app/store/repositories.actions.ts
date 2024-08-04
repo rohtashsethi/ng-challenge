@@ -17,7 +17,7 @@ export const loadRepositoriesFailure = createAction(
 );
 
 export const filterRepositories = createAction(
-  '[Repositories/API] Filter Repositories',
+  '[Repositories] Filter Repositories',
   props<{ filter: string }>()
 );
 
