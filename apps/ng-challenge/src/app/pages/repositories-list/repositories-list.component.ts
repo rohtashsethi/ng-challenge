@@ -30,7 +30,7 @@ export default class RepositoriesListComponent {
       flex: 1,
       filter: true,
       valueFormatter: (p) =>
-        p.value && this.datePipe.transform(p.value || '', 'medium'),
+        p.value && this.datePipe.transform(p.value ?? '', 'medium'),
     },
   ];
 
