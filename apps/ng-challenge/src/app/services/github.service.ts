@@ -11,6 +11,13 @@ import { Repository } from '../models/repositories.models';
 export class GithubService {
   constructor(private apollo: Apollo) {}
 
+  /**
+   * Fetches the GitHub User Info
+   *
+   * @param {string} login - Username of the GitHub User
+   * @return {*}  {(Observable<User | null>)}
+   * @memberof GithubService
+   */
   getUserInfo(login: string): Observable<User | null> {
     return this.apollo
       .query<{ user: User }>({
@@ -27,6 +34,14 @@ export class GithubService {
       );
   }
 
+  /**
+   * Fetches the repositories of the Gihub User
+   *
+   * @param {string} login - Username of the GitHub User
+   * @param {number} [pageSize=50]
+   * @return {*}  {Observable<Repository[]>}
+   * @memberof GithubService
+   */
   getRepositories(login: string, pageSize = 50): Observable<Repository[]> {
     return this.apollo
       .query<{ user: User }>({

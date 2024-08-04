@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     { title: 'Home', route: '/' },
     { title: 'Repositories', route: '/repositories' },
     { title: 'Report', route: '/report'}
-  ]
+  ];
 
   constructor(private store: Store) {}
 
@@ -24,6 +24,11 @@ export class AppComponent implements OnInit {
     this.fetchRepos();
   }
 
+  /**
+   * Dispaches Load Repository action to store 
+   *
+   * @memberof AppComponent
+   */
   fetchRepos(): void {
     this.store.dispatch(
       RepositoryActions.loadRepositories({ login: 'rohtashsethi' })
