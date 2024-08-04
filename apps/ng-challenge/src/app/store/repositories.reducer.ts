@@ -8,6 +8,8 @@ export const REPOSITORIES_FEATURE_KEY = 'repositories';
 export interface RepositoriesState {
   repositories: Repository[];
   filter: string;
+  cursor: string | null,
+  hasNextPage: boolean,
   loaded: boolean;
   error?: string | null;
 }
@@ -19,6 +21,8 @@ export interface RepositoriesPartialState {
 export const initialRepositoriesState: RepositoriesState = {
     repositories: [],
     filter: '',
+    cursor: null,
+    hasNextPage: false,
     loaded: false,
   };
 
@@ -29,9 +33,11 @@ const reducer = createReducer(
     loaded: false,
     error: null,
   })),
-  on(RepositoriesActions.loadRepositoriesSuccess, (state, { repositories }) => ({ 
+  on(RepositoriesActions.loadRepositoriesSuccess, (state, { repositories, cursor, hasNextPage }) => ({ 
     ...state,
-    repositories,
+    repositories: [...state.repositories, ...repositories],
+    cursor,
+    hasNextPage,
     loaded: true 
   })),
   on(RepositoriesActions.loadRepositoriesFailure, (state, { error }) => ({

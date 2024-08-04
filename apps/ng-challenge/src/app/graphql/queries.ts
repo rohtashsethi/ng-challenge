@@ -13,8 +13,8 @@ export const GET_USER_INFO = gql`
 `;
 
 export const GET_REPOS = gql`
-  query ($login: String!, $pageSize: Int!) {
-    user(login: $login) {
+  query Viewer ($pageSize: Int!) {
+    viewer {
       login
       name
       repositories(first: $pageSize, orderBy: { field: STARGAZERS, direction: DESC }) {
@@ -25,6 +25,29 @@ export const GET_REPOS = gql`
           name
           stargazerCount
           createdAt
+        }
+      }
+    }
+  }
+`;
+
+export const GET_REPOS_CURSOR = gql`
+  query Viewer ($limit: Int, $cursor: String) {
+    viewer {
+      repositories(first: $limit, after: $cursor, orderBy: { field: STARGAZERS, direction: DESC }) {
+        edges {
+          node {
+            description
+            id
+            name
+            stargazerCount
+            createdAt
+          }
+          cursor
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
         }
       }
     }

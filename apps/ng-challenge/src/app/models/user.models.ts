@@ -12,5 +12,20 @@ export interface User {
   location: string;
   bio: string;
   avatarUrl: string;
-  repositories: { nodes: Repository[] };
+  repositories: Repositories;
+}
+
+export interface Repositories {
+  edges: Edge[];
+  pageInfo: PageInfo;
+}
+
+export interface Edge {
+  cursor: string;
+  node: Repository
+}
+
+export interface PageInfo {
+  endCursor: string;
+  hasNextPage: boolean;
 }

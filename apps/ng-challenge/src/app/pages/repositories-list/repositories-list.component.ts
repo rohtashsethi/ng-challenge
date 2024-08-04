@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -17,31 +17,55 @@ import { Repository } from '../../models/repositories.models';
   templateUrl: './repositories-list.component.html',
   styleUrl: './repositories-list.component.css',
 })
-export default class RepositoriesListComponent {
+export default class RepositoriesListComponent implements OnInit {
   repos$: Observable<Repository[]> | null = null;
+  cursor: string = '';
+  hasNextPage: boolean = false;
 
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
-    { field: 'name', flex: 1},
-    { field: 'description', flex: 1 },
-    { field: 'stargazerCount', headerName: 'Stars', flex: .5 },
+    { field: 'name', maxWidth: 150, pinned: 'left', resizable: true},
+    { field: 'description', resizable: true  },
+    { field: 'stargazerCount', headerName: 'Stars', resizable: true },
     {
       field: 'createdAt',
-      flex: 1,
+      resizable: true,
       valueFormatter: (p) =>
         p.value && this.datePipe.transform(p.value ?? '', 'medium'),
     },
   ];
 
-  pagination = true;
-  paginationPageSize = 15;
-  paginationPageSizeSelector = [15, 30, 50];
+  gridOptions = {
+    defaultColDef: {
+      flex: 1,
+      minWidth: 200,
+    }
+  };
 
   constructor(private store: Store, private datePipe: DatePipe) {
     this.repos$ = this.store.select(RepositorySelectors.selectRepositories);
   }
 
+  ngOnInit(): void {
+    this.store.select(RepositorySelectors.selectRepositoriesPageInfo).subscribe({
+      next: pageInfo => {
+        this.cursor = pageInfo.cursor ?? '';
+        this.hasNextPage = pageInfo.hasNextPage;
+      }
+    })
+  }
+
   filterRepos(filter: string): void {
     this.store.dispatch(RepositoryActions.filterRepositories({ filter }));
+  }
+
+  onGridReady(params: any) {
+    params.api.sizeColumnsToFit();
+  }
+
+  loadMore(): void {
+    this.store.dispatch(
+      RepositoryActions.loadRepositories({ cursor: this.cursor, limit: 20})
+    );
   }
 }

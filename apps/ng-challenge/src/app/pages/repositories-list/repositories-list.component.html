@@ -1,22 +1,26 @@
-<div class="flex gap-5">
-  <input 
-    type="search" 
-    class="border-2 rounded-md hover:border-blue-500 px-4 py-2 w-80 outline-none"
-    placeholder="Search by name or description"
-    #filterInput 
-    (input)="filterRepos(filterInput.value)"
-  />
-</div>
-
-<div class="flex-auto">
-  @if (repos$ | async; as repos) {
-    <ag-grid-angular 
-      class="ag-theme-quartz h-full" 
-      [rowData]="repos" 
-      [columnDefs]="colDefs"
-      [pagination]="pagination"
-      [paginationPageSize]="paginationPageSize"
-      [paginationPageSizeSelector]="paginationPageSizeSelector"
+@if (repos$ | async; as repos) {
+  <div class="flex flex-col gap-3 md:flex-row md:items-center">
+    <span class="md:order-2"> Total Records: {{ repos.length }} </span>
+    <input 
+      type="search" 
+      class="md:order-1 border-2 rounded-md hover:border-blue-500 px-4 py-2 w-80 outline-none"
+      placeholder="Search by name or description"
+      #filterInput
+      (input)="filterRepos(filterInput.value)"
     />
-  }
-</div>
+  </div>
+
+  <div class="flex-auto">
+      <ag-grid-angular 
+        class="ag-theme-quartz h-full" 
+        [rowData]="repos" 
+        [columnDefs]="colDefs"
+        [gridOptions]="gridOptions"
+        (gridReady)="onGridReady($event)"
+      />
+  </div>
+  <button (click)="loadMore()" [class.bg-slate-500]="!hasNextPage" [disabled]="!hasNextPage" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+    Load More
+  </button>
+}
+

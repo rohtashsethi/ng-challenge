@@ -12,10 +12,15 @@ export class RepositoriesEffects {
   load$ = createEffect(() =>
     this.actions$.pipe(
       ofType(RepositoriesActions.loadRepositories),
-      switchMap(({ login }) =>
-        this.githubService.getRepositories(login).pipe(
-          map(repositories => {
-            return RepositoriesActions.loadRepositoriesSuccess({ repositories })
+      switchMap(({ cursor, limit  }) =>
+        this.githubService.getRepositories(cursor, limit).pipe(
+          map(result => {
+            console.log(result);
+            return RepositoriesActions.loadRepositoriesSuccess({ 
+              repositories: result.edges.map(edge => edge.node),
+              cursor: result.pageInfo.endCursor,
+              hasNextPage: result.pageInfo.hasNextPage
+             })
           })
         )
       ),
