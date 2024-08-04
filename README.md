@@ -1,28 +1,32 @@
-# Ng Challenge
-SecureWorks UI Code Challenge
+# SecureWorks UI Code Challenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
+This project is an Angular application integrated with GitHub OAuth. It uses a NestJS backend to exchange the access token and then uses the token to call the GitHub GraphQL APIs. 
+
+The application features:
+
+- Displaying a list of repositories in a tabular format using ag-Grid.
+- Data visualization using D3 to draw a bar chart displaying the top 5 starred repos.
+- State management using NgRx for Repository Management.
+- Apollo Angular Client for accessing GitHub GraphQL API
+- TailwindCSS for styling
+- Storybook for Component Design System
+- Nx for Integrated Monorepo
+
+## Prerequisites
+- Node
+- Nx
+- GitHub account and OAuth app configured.
+
+# Getting Started
+
+## Install Dependencies
+
+```npm install```
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```
+npx nx run-many --target=serve --projects=backend,ng-challenge 
+```
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Run above for running frontend & backend dev server. Navigate to `http://localhost:4200/` for frontend. The application will automatically reload if you change any of the source files.
