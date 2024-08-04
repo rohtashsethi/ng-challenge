@@ -18,16 +18,15 @@ export class GithubService {
    * @return {*}  {(Observable<User | null>)}
    * @memberof GithubService
    */
-  getUserInfo(login: string): Observable<User | null> {
+  getUserInfo(): Observable<User | null> {
     return this.apollo
-      .query<{ user: User }>({
+      .query<{ viewer: User }>({
         query: GET_USER_INFO,
-        variables: { login },
       })
       .pipe(
         map((result) => {
           if (result.data) {
-            return result.data.user;
+            return result.data.viewer;
           }
           return null;
         })

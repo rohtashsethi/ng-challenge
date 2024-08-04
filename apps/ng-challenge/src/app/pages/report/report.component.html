@@ -1,5 +1,8 @@
+<h2 class="text-xl"> Data Visualization with D3</h2>
+<p> Top 5 Starred Repositories </p>
+
 @if (stars$ | async; as stars) {
   @if (stars.length) {
-    <lib-barchart class="w-full lg:w-3/4" [data]="stars" [barColor]="'red'"></lib-barchart>
+    <lib-barchart class="w-full lg:w-1/2" [chartHeight]="600" [data]="stars" [barColor]="'steelblue'"></lib-barchart>
   }
 }

@@ -1,8 +1,8 @@
 import { gql } from 'apollo-angular';
 
 export const GET_USER_INFO = gql`
-  query ($login: String!) {
-    user(login: $login) {
+  query Viewer {
+    viewer {
       name
       login
       location

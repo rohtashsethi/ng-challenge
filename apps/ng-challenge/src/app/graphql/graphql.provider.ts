@@ -11,7 +11,7 @@ export function apolloOptionsFactory(): ApolloClientOptions<any> {
 
   // Authentication Link
   const auth = setContext((_, { headers }) => {
-    const token = environment.githubToken; // Use environment variable
+    const token = localStorage.getItem('token');
     return {
       headers: {
         ...headers,

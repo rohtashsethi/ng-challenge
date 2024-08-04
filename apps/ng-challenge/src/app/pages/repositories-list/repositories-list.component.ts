@@ -22,21 +22,20 @@ export default class RepositoriesListComponent {
 
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
-    { field: 'name', flex: 1, filter: true },
-    { field: 'description', flex: 1, filter: true },
-    { field: 'stargazerCount', headerName: 'Stars', flex: .5, filter: true },
+    { field: 'name', flex: 1},
+    { field: 'description', flex: 1 },
+    { field: 'stargazerCount', headerName: 'Stars', flex: .5 },
     {
       field: 'createdAt',
       flex: 1,
-      filter: true,
       valueFormatter: (p) =>
-        p.value && this.datePipe.transform(p.value || '', 'medium'),
+        p.value && this.datePipe.transform(p.value ?? '', 'medium'),
     },
   ];
 
   pagination = true;
-  paginationPageSize = 10;
-  paginationPageSizeSelector = [10, 15, 20];
+  paginationPageSize = 15;
+  paginationPageSizeSelector = [15, 30, 50];
 
   constructor(private store: Store, private datePipe: DatePipe) {
     this.repos$ = this.store.select(RepositorySelectors.selectRepositories);
