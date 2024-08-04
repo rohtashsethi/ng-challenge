@@ -12,3 +12,7 @@ body {
 .link {
   @apply text-blue-500 bg-white px-2 cursor-pointer hover:text-blue-800;
 }
+
+.primary-btn {
+  @apply mt-4 bg-blue-500 text-white px-4 py-2 rounded disabled:bg-slate-300;
+}

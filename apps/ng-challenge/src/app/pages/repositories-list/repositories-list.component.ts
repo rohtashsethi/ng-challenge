@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, GridOptions, GridReadyEvent } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular';
 
 import * as RepositoryActions from './../../store/repositories.actions';
@@ -17,10 +17,10 @@ import { Repository } from '../../models/repositories.models';
   templateUrl: './repositories-list.component.html',
   styleUrl: './repositories-list.component.css',
 })
-export default class RepositoriesListComponent implements OnInit {
-  repos$: Observable<Repository[]> | null = null;
-  cursor: string = '';
-  hasNextPage: boolean = false;
+export default class RepositoriesListComponent {
+  repos$: Observable<Repository[]>;
+  cursor$: Observable<string | null>;
+  hasNextPage$: Observable<boolean>;
 
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
@@ -35,7 +35,7 @@ export default class RepositoriesListComponent implements OnInit {
     },
   ];
 
-  gridOptions = {
+  gridOptions: GridOptions = {
     defaultColDef: {
       flex: 1,
       minWidth: 200,
@@ -44,28 +44,21 @@ export default class RepositoriesListComponent implements OnInit {
 
   constructor(private store: Store, private datePipe: DatePipe) {
     this.repos$ = this.store.select(RepositorySelectors.selectRepositories);
-  }
-
-  ngOnInit(): void {
-    this.store.select(RepositorySelectors.selectRepositoriesPageInfo).subscribe({
-      next: pageInfo => {
-        this.cursor = pageInfo.cursor ?? '';
-        this.hasNextPage = pageInfo.hasNextPage;
-      }
-    })
+    this.cursor$ = this.store.select(RepositorySelectors.selectRepositoriesCursor);
+    this.hasNextPage$ = this.store.select(RepositorySelectors.selectRepositoriesHasNextPage);
   }
 
   filterRepos(filter: string): void {
     this.store.dispatch(RepositoryActions.filterRepositories({ filter }));
   }
 
-  onGridReady(params: any) {
+  onGridReady(params: GridReadyEvent) {
     params.api.sizeColumnsToFit();
   }
 
-  loadMore(): void {
+  loadMore(cursor: string): void {
     this.store.dispatch(
-      RepositoryActions.loadRepositories({ cursor: this.cursor, limit: 20})
+      RepositoryActions.loadRepositories({ cursor, limit: 20})
     );
   }
 }

@@ -20,10 +20,14 @@ export const selectRepositoriesError = createSelector(
   (state: RepositoriesState) => state.error
 );
 
-
-export const selectRepositoriesPageInfo = createSelector(
+export const selectRepositoriesCursor = createSelector(
   selectRepositoriesState,
-  (state: RepositoriesState) => ({ cursor: state.cursor, hasNextPage: state.hasNextPage})
+  (state: RepositoriesState) => state.cursor
+);
+
+export const selectRepositoriesHasNextPage = createSelector(
+  selectRepositoriesState,
+  (state: RepositoriesState) => state.hasNextPage
 );
 
 export const selectRepositories = createSelector(

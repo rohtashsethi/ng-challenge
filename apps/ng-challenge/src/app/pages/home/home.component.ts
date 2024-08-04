@@ -1,4 +1,4 @@
-import { UserStore } from './../../signal-store/user.store';
+import { Subscription, tap } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,12 +6,13 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { compose, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { GithubService } from '../../services/github.service';
 import { User } from '../../models/user.models';
 import { HeaderComponent } from './../../layout/header/header.component';
 import * as RepositoryActions from './../../store/repositories.actions';
+import { UserStore } from './../../signal-store/user.store';
+
 
 @Component({
   selector: 'app-home',
@@ -21,16 +22,21 @@ import * as RepositoryActions from './../../store/repositories.actions';
   styleUrl: './home.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class HomeComponent implements OnInit {
+export default class HomeComponent implements OnInit, OnDestroy {
   user: User | null = null;
   readonly userStore = inject(UserStore);
+  userSub$!: Subscription;
 
   constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     if (!this.userStore.loaded()) {
-      this.getUserInfo();
-      console.log('jiaaaa');
+      this.userSub$ = this.userStore.fetchUser().pipe(tap(user => {
+        if (user) {
+          this.user = user;
+          this.fetchRepos()
+        }
+      })).subscribe();
     } else {
       this.user = this.userStore.user();
     }
@@ -41,20 +47,13 @@ export default class HomeComponent implements OnInit {
    *
    * @memberof AppComponent
    */
-  fetchRepos(login: string): void {
+  fetchRepos(): void {
     this.store.dispatch(
-      RepositoryActions.loadRepositories({ cursor: '', limit: 20 })
+      RepositoryActions.loadRepositories({ cursor: null, limit: 20 })
     );
   }
 
-  getUserInfo() {
-    this.userStore.fetchUser().subscribe({
-      next: (user) => {
-        if (user) {
-          this.user = user;
-          this.fetchRepos(user.login);
-        }
-      },
-    });
+  ngOnDestroy(): void {
+    this.userSub$?.unsubscribe();
   }
 }

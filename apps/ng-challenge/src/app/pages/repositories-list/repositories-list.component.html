@@ -19,8 +19,9 @@
         (gridReady)="onGridReady($event)"
       />
   </div>
-  <button (click)="loadMore()" [class.bg-slate-500]="!hasNextPage" [disabled]="!hasNextPage" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
-    Load More
-  </button>
+  @if(cursor$ | async; as cursor) {
+    <button (click)="loadMore(cursor)" [disabled]="!(hasNextPage$ | async)" class="primary-btn">
+      {{ (hasNextPage$ | async) ? 'Load More' : 'No More Records' }} 
+    </button>
+  }
 }
-
