@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { GITHUB_OAUTH_APP } from '../../configs/oauth.config';
 
 @Component({
@@ -6,7 +6,8 @@ import { GITHUB_OAUTH_APP } from '../../configs/oauth.config';
   standalone: true,
   imports: [],
   templateUrl: './auth.component.html',
-  styleUrl: './auth.component.css'
+  styleUrl: './auth.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class AuthComponent {
   githubOauthUrl: string;

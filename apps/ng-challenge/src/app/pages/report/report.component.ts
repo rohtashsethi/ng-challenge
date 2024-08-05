@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BarchartComponent, BarChartItem } from 'barchart';
-import { map, Observable } from 'rxjs';
-import { Repository } from '../../models/repositories.models';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as RepositorySelectors from '../../store/repositories.selectors';
 import { AsyncPipe } from '@angular/common';
@@ -11,7 +10,8 @@ import { AsyncPipe } from '@angular/common';
   standalone: true,
   imports: [BarchartComponent, AsyncPipe],
   templateUrl: './report.component.html',
-  styleUrl: './report.component.css'
+  styleUrl: './report.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class ReportComponent {
   stars$: Observable<BarChartItem[]> | null = null;

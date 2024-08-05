@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -16,6 +16,7 @@ import { Repository } from '../../models/repositories.models';
   providers: [DatePipe],
   templateUrl: './repositories-list.component.html',
   styleUrl: './repositories-list.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class RepositoriesListComponent {
   repos$: Observable<Repository[]>;

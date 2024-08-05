@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-auth-callback',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   imports: [],
   template: ` <p>auth-callback works!</p> `,
   styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class AuthCallbackComponent implements OnInit {
   constructor(

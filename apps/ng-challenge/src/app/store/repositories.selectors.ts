@@ -42,5 +42,5 @@ export const selectRepositories = createSelector(
 
 export const selectStarInfo = createSelector(
   selectRepositoriesState,
-  (state: RepositoriesState) => state.repositories.slice(0, 5).map((repo) => ({ name: repo.name, value: repo.stargazerCount } as BarChartItem))
+  (state: RepositoriesState) => state.repositories.slice(0, 10).map((repo) => ({ name: repo.name, value: repo.stargazerCount } as BarChartItem))
 );

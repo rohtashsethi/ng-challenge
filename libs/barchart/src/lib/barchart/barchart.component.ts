@@ -7,7 +7,7 @@ import * as d3 from 'd3';
   selector: 'lib-barchart',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './barchart.component.html',
+  template: ``,
   styleUrl: './barchart.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -122,7 +122,7 @@ export class BarchartComponent {
       .attr('transform', `translate(0, ${this.height})`)
       .call(d3.axisBottom(x))
       .selectAll('text')
-      .attr('class', 'translate-x-0 -rotate-45 lg:translate-x-10 lg:rotate-0 text-[8px] md:text-[10px]')
+      .attr('class', 'translate-x-0 -rotate-45 lg:translate-x-0 lg:-rotate-15 text-[8px] md:text-[10px]')
       .style('text-anchor', 'end');
 
     this.svg.append('g')
