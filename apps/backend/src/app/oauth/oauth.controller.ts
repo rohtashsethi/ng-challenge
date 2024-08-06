@@ -8,9 +8,7 @@ export class OauthController {
 
   @Get('callback')
   async oauthCallback(@Query('code') code: string, @Res() res: Response) {
-    console.log('Code ', code);
     const token = await firstValueFrom(this.oauthService.getAccessToken(code));
-    console.log('Token ', token);
     res.redirect(`http://localhost:4200/callback?token=${token}`);
   }
 }
