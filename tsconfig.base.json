@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "sourceMap": true,
-    "declaration": true,
+    "declaration": false,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "importHelpers": true,
@@ -19,13 +19,14 @@
     "lib": ["ES2022", "dom", "esnext.asynciterable"],
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "barchart": ["libs/barchart/src/index.ts"],
-      "repository-list": ["features/repository-list/src/index.ts"],
-      "types": ["libs/shared/types/src/index.ts"]
+      "@lib/barchart": ["libs/barchart/src/index.ts"],
+      "@lib/core": ["libs/core/src/index.ts"],
+      "@lib/shared/data-store": ["libs/shared/data-store/src/index.ts"],
+      "@lib/features/repository-list": ["features/repository-list/src/index.ts"],
+      "@lib/shared/types": ["libs/shared/types/src/index.ts"]
     },
     "baseUrl": ".",
     "rootDir": ".",
-    "composite": true,
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

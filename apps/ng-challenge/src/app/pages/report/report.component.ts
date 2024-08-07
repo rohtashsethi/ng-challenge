@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BarchartComponent, BarChartItem } from 'barchart';
+import { BarchartComponent, BarChartItem } from '@lib/barchart';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as RepositorySelectors from '../../store/repositories.selectors';
