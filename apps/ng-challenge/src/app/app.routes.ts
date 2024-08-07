@@ -1,5 +1,5 @@
-import { authGuard } from './guards/auth.guard';
 import { Routes } from '@angular/router';
+import { authGuard } from '@lib/core';
 
 export const routes: Routes = [
   {
@@ -9,24 +9,24 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    loadComponent: () => import('./pages/auth/auth.component')
+    loadComponent: () => import('@lib/features/auth').then(m => m.AuthComponent)
   },
   {
     path: 'callback',
-    loadComponent: () => import('./pages/auth-callback/auth-callback.component')
+    loadComponent: () => import('@lib/features/auth-callback').then(m => m.AuthCallbackComponent)
   },
   {
     path: 'home',
     canActivate: [authGuard],
-    loadComponent: () => import('./pages/home/home.component'),
+    loadComponent: () => import('@lib/features/home').then(m => m.HomeComponent),
     children: [
       { 
         path: 'repositories',
-        loadComponent: () => import('./pages/repositories-list/repositories-list.component')
+        loadComponent: () => import('@lib/features/reporitories').then(m => m.RepositoriesComponent)
       },
       { 
         path: 'report',
-        loadComponent: () => import('./pages/report/report.component')
+        loadComponent: () => import('@lib/features/reports').then(m => m.ReportComponent)
       },
     ]
   },
