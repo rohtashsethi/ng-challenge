@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "importHelpers": true,
@@ -20,10 +20,12 @@
     "allowSyntheticDefaultImports": true,
     "paths": {
       "barchart": ["libs/barchart/src/index.ts"],
-      "repository-list": ["features/repository-list/src/index.ts"]
+      "repository-list": ["features/repository-list/src/index.ts"],
+      "types": ["libs/shared/types/src/index.ts"]
     },
     "baseUrl": ".",
-    "rootDir": "."
+    "rootDir": ".",
+    "composite": true,
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
