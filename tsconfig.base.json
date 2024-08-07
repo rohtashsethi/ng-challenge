@@ -19,7 +19,8 @@
     "lib": ["ES2022", "dom", "esnext.asynciterable"],
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "barchart": ["libs/barchart/src/index.ts"]
+      "barchart": ["libs/barchart/src/index.ts"],
+      "repository-list": ["features/repository-list/src/index.ts"]
     },
     "baseUrl": ".",
     "rootDir": "."
