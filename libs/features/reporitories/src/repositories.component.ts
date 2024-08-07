@@ -6,8 +6,7 @@ import { ColDef, GridOptions, GridReadyEvent } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular';
 
 import {
-  filterRepositories,
-  loadRepositories,
+  repositoriesActions,
   selectRepositories,
   selectRepositoriesCursor,
   selectRepositoriesHasNextPage,
@@ -55,7 +54,7 @@ export class RepositoriesComponent {
   }
 
   filterRepos(filter: string): void {
-    this.store.dispatch(filterRepositories({ filter }));
+    this.store.dispatch(repositoriesActions.filter({ filter }));
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -63,6 +62,6 @@ export class RepositoriesComponent {
   }
 
   loadMore(cursor: string): void {
-    this.store.dispatch(loadRepositories({ cursor, limit: 20 }));
+    this.store.dispatch(repositoriesActions.load({ cursor, limit: 20 }));
   }
 }

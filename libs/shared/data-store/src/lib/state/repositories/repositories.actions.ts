@@ -1,23 +1,13 @@
 import { Repository } from '@lib/shared/types';
-import { createAction, props } from '@ngrx/store';
+import { createActionGroup, props } from '@ngrx/store';
 
-export const loadRepositories = createAction(
-  '[Repositories/API] Load Repositories',
-  props<{ cursor: string | null, limit: number }>()
-);
-
-export const loadRepositoriesSuccess = createAction(
-  '[Repositories/API] Load Repositories Success',
-  props<{ repositories: Repository[], cursor: string, hasNextPage: boolean }>()
-);
-
-export const loadRepositoriesFailure = createAction(
-  '[Repositories/API] Load Repositories Failure',
-  props<{ error: any }>()
-);
-
-export const filterRepositories = createAction(
-  '[Repositories] Filter Repositories',
-  props<{ filter: string }>()
-);
+export const repositoriesActions =  createActionGroup({
+  source: 'Repositories',
+  events: {
+    'Load': props<{ cursor: string | null, limit: number }>(),
+    'Load Success': props<{ repositories: Repository[], cursor: string, hasNextPage: boolean }>(),
+    'Load Failure': props<{ error: any }>(),
+    'Filter': props<{ filter: string }>()
+  }
+})
 

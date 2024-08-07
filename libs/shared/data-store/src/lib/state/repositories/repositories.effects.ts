@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { switchMap, catchError, of, map } from 'rxjs';
 import { GithubService } from '@lib/core';
-import * as RepositoriesActions from './repositories.actions';
+import { repositoriesActions } from './repositories.actions';
 
 @Injectable()
 export class RepositoriesEffects {
@@ -11,12 +11,12 @@ export class RepositoriesEffects {
 
   load$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(RepositoriesActions.loadRepositories),
+      ofType(repositoriesActions.load),
       switchMap(({ cursor, limit  }) =>
         this.githubService.getRepositories(cursor, limit).pipe(
           map(result => {
             console.log(result);
-            return RepositoriesActions.loadRepositoriesSuccess({ 
+            return repositoriesActions.loadSuccess({ 
               repositories: result.edges.map(edge => edge.node),
               cursor: result.pageInfo.endCursor,
               hasNextPage: result.pageInfo.hasNextPage
@@ -26,7 +26,7 @@ export class RepositoriesEffects {
       ),
       catchError((error) => {
         console.error('Error', error);
-        return of(RepositoriesActions.loadRepositoriesFailure({ error }));
+        return of(repositoriesActions.loadFailure({ error }));
       })
     )
   );

@@ -1,7 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { Repository } from '@lib/shared/types';
-import * as RepositoriesActions from './repositories.actions';
-
+import { repositoriesActions } from './repositories.actions';
 export const REPOSITORIES_FEATURE_KEY = 'repositories';
 
 export interface RepositoriesState {
@@ -27,23 +26,23 @@ export const initialRepositoriesState: RepositoriesState = {
 
 const reducer = createReducer(
   initialRepositoriesState,
-  on(RepositoriesActions.loadRepositories, (state) => ({
+  on(repositoriesActions.load, (state) => ({
     ...state,
     loaded: false,
     error: null,
   })),
-  on(RepositoriesActions.loadRepositoriesSuccess, (state, { repositories, cursor, hasNextPage }) => ({ 
+  on(repositoriesActions.loadSuccess, (state, { repositories, cursor, hasNextPage }) => ({ 
     ...state,
     repositories: [...state.repositories, ...repositories],
     cursor,
     hasNextPage,
     loaded: true 
   })),
-  on(RepositoriesActions.loadRepositoriesFailure, (state, { error }) => ({
+  on(repositoriesActions.loadFailure, (state, { error }) => ({
     ...state,
     error,
   })),
-  on(RepositoriesActions.filterRepositories, (state, { filter }) => ({
+  on(repositoriesActions.filter, (state, { filter }) => ({
     ...state,
     filter
   }))

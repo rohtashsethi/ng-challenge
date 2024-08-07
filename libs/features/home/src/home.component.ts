@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '@lib/shared/layout';
 import { User } from '@lib/shared/types';
-import { UserStore, loadRepositories } from '@lib/shared/data-store';
+import { UserStore, repositoriesActions } from '@lib/shared/data-store';
 
 @Component({
   selector: 'lib-home',
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit, OnDestroy {
    */
   fetchRepos(): void {
     this.store.dispatch(
-      loadRepositories({ cursor: null, limit: 20 })
+      repositoriesActions.load({ cursor: null, limit: 20 })
     );
   }
 
