@@ -2,6 +2,7 @@ import { Subscription, tap } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   OnDestroy,
   OnInit,
@@ -10,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '@lib/shared/layout';
 import { User } from '@lib/shared/types';
-import { UserStore, repositoriesActions } from '@lib/shared/data-store';
+import { RepositoriesStore, UserStore } from '@lib/shared/data-store';
 
 @Component({
   selector: 'lib-home',
@@ -20,25 +21,18 @@ import { UserStore, repositoriesActions } from '@lib/shared/data-store';
   styleUrl: './home.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  user: User | null = null;
+export class HomeComponent {
   readonly userStore = inject(UserStore);
-  userSub$!: Subscription;
+  readonly repositoryStore = inject(RepositoriesStore);
 
-  constructor(private store: Store, private router: Router) {}
-
-  ngOnInit(): void {
+  currentUser$ = computed(() => {
     if (!this.userStore.loaded()) {
-      this.userSub$ = this.userStore.fetchUser().pipe(tap(user => {
-        if (user) {
-          this.user = user;
-          this.fetchRepos()
-        }
-      })).subscribe();
-    } else {
-      this.user = this.userStore.user();
+      this.userStore.fetchUser();
+      this.fetchRepos();
     }
-  }
+    return this.userStore.getCurrentUser();
+  });
+
 
   /**
    * Dispaches Load Repository action to store
@@ -46,12 +40,6 @@ export class HomeComponent implements OnInit, OnDestroy {
    * @memberof AppComponent
    */
   fetchRepos(): void {
-    this.store.dispatch(
-      repositoriesActions.load({ cursor: null, limit: 20 })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.userSub$?.unsubscribe();
+    this.repositoryStore.load(null, 20);
   }
 }

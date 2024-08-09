@@ -1,17 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { ColDef, GridOptions, GridReadyEvent } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular';
 
 import {
-  repositoriesActions,
-  selectRepositories,
-  selectRepositoriesCursor,
-  selectRepositoriesHasNextPage,
+  RepositoriesStore,
 } from '@lib/shared/data-store';
-import { Repository } from '@lib/shared/types';
 
 @Component({
   selector: 'lib-repositories-list',
@@ -23,9 +18,12 @@ import { Repository } from '@lib/shared/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RepositoriesComponent {
-  repos$: Observable<Repository[]>;
-  cursor$: Observable<string | null>;
-  hasNextPage$: Observable<boolean>;
+  readonly repositoryStore = inject(RepositoriesStore);
+
+  repos$ = computed(() => {
+      return this.repositoryStore.getRepositories();
+  });
+
 
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
@@ -47,14 +45,11 @@ export class RepositoriesComponent {
     },
   };
 
-  constructor(private store: Store, private datePipe: DatePipe) {
-    this.repos$ = this.store.select(selectRepositories);
-    this.cursor$ = this.store.select(selectRepositoriesCursor);
-    this.hasNextPage$ = this.store.select(selectRepositoriesHasNextPage);
-  }
+  constructor(private store: Store, private datePipe: DatePipe) {}
+
 
   filterRepos(filter: string): void {
-    this.store.dispatch(repositoriesActions.filter({ filter }));
+    this.repositoryStore.setFilter(filter);
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -62,6 +57,6 @@ export class RepositoriesComponent {
   }
 
   loadMore(cursor: string): void {
-    this.store.dispatch(repositoriesActions.load({ cursor, limit: 20 }));
+    this.repositoryStore.load(cursor, 20);
   }
 }

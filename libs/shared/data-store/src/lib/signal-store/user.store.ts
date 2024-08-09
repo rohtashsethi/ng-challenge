@@ -1,7 +1,7 @@
-import { inject } from '@angular/core';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { tapResponse } from '@ngrx/operators';
+import { computed, inject } from '@angular/core';
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { GithubService } from '@lib/core';
-import { map } from 'rxjs';
 import { User } from '@lib/shared/types';
 
 type CurrentUserState = {
@@ -19,19 +19,29 @@ const initialState: CurrentUserState = {
 export const UserStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
-  withMethods((store, githubService = inject(GithubService)) => ({
+  withMethods((state, githubService = inject(GithubService)) => ({
     fetchUser() {
       return githubService.getUserInfo().pipe(
-        map(user => {
-          if (user) {
-            patchState(store, { user, loaded: true, error: null });
-            return user;
-          } else {
-            patchState(store, { user: null, loaded: false, error: null })
-            return null;
-          }
+        tapResponse({
+          next: user => {
+            if (user) {
+              patchState(state, { user, loaded: true, error: null });
+              return user;
+            } else {
+              patchState(state, { user: null, loaded: false, error: null })
+              return null;
+            }
+          },
+          error: err => console.log(err)
         })
-      )
+      ).subscribe();
     },
-  }))
+  })),
+  withComputed(state => {
+    return {
+      getCurrentUser: computed(() => {
+        return state.user();
+      }),
+    }
+  })
 );
