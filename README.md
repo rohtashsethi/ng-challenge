@@ -6,7 +6,7 @@ The application features:
 
 - Displaying a list of repositories in a tabular format using ag-Grid.
 - Data visualization using D3 to draw a bar chart displaying the top 5 starred repos.
-- State management using NgRx for Repository Management.
+- State management using Angular Signal Store.
 - Apollo Angular Client for accessing GitHub GraphQL API
 - TailwindCSS for styling
 - Storybook for Component Design System
