@@ -21,8 +21,15 @@ export class RepositoriesComponent {
   readonly repositoryStore = inject(RepositoriesStore);
 
   repos$ = computed(() => {
+    this.disableLoad = false;
       return this.repositoryStore.getRepositories();
   });
+
+  loaded$ = computed(() => {
+    return this.repositoryStore.loaded();
+  })
+
+  disableLoad = false;
 
 
   // Column Definitions: Defines the columns to be displayed.
@@ -57,6 +64,7 @@ export class RepositoriesComponent {
   }
 
   loadMore(cursor: string): void {
+    this.disableLoad = true;
     this.repositoryStore.load(cursor, 20);
   }
 }

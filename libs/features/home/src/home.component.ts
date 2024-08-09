@@ -1,16 +1,11 @@
-import { Subscription, tap } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
   inject,
-  OnDestroy,
-  OnInit,
 } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '@lib/shared/layout';
-import { User } from '@lib/shared/types';
 import { RepositoriesStore, UserStore } from '@lib/shared/data-store';
 
 @Component({
@@ -32,7 +27,6 @@ export class HomeComponent {
     }
     return this.userStore.getCurrentUser();
   });
-
 
   /**
    * Dispaches Load Repository action to store
