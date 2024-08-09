@@ -1,3 +1,4 @@
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { computed, inject } from '@angular/core';
 import { tapResponse } from '@ngrx/operators';
@@ -5,6 +6,7 @@ import { Repositories, Repository } from '@lib/shared/types';
 import { BarChartItem } from '@lib/barchart';
 import { GithubService } from '@lib/core';
 import { initialRepositoriesState } from '../state/repositories/repositories.reducer';
+import { debounceTime, distinctUntilChanged, pipe, switchMap } from 'rxjs';
 
 export const RepositoriesStore = signalStore(
   { providedIn: 'root' },
@@ -13,6 +15,22 @@ export const RepositoriesStore = signalStore(
     const githubService = inject(GithubService);
 
     return {
+
+      rxLoad: rxMethod<[string | null, number]>(
+        pipe(
+          debounceTime(600),
+          distinctUntilChanged(),
+          switchMap(([cursor, limit]) => githubService.getRepositories(cursor, limit)),
+          tapResponse({
+            next: (response: Repositories) => patchState(state, { 
+              repositories: [...state.repositories(), ...response.edges.map(edge => edge.node)],
+              cursor: response.pageInfo.endCursor,
+              hasNextPage: response.pageInfo.hasNextPage,
+            }),
+            error: err => console.log(err)
+          })
+        )
+      ),
       load(cursor: string | null, limit: number): void {
         githubService.getRepositories(cursor, limit).pipe(
           tapResponse({

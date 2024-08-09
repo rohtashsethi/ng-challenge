@@ -20,8 +20,8 @@
       />
   </div>
   @if(repos.cursor) {
-    <button (click)="loadMore(repos.cursor)" [disabled]="!repos.hasNextPage" class="primary-btn">
-      {{ repos.hasNextPage ? 'Load More' : 'No More Records' }} 
+    <button (click)="loadMore(repos.cursor)" [disabled]="!repos.hasNextPage || disableLoad" class="primary-btn">
+      {{ disableLoad ? 'Loading...' : repos.hasNextPage ? 'Load More' : 'No More Records' }} 
     </button>
   }
 }
